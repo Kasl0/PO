@@ -1,12 +1,10 @@
 package agh.ics.oop;
 
-import java.util.Arrays;
-
 public class World {
     public static void main (String[] args) {
         System.out.println("system wystartował");
 
-        //String[] args = new String[ ]{"f", "f", "r", "l"};
+        //args = new String[ ]{"f", "f", "r", "l"};
         Direction[] directions = StringsToDirections(args);
         run(directions);
 
