@@ -11,17 +11,17 @@ public class World {
         System.out.println(position1.add(position2));
 
         //args = new String[ ]{"f", "f", "r", "l"};
-        Direction[] directions = StringsToDirections(args);
+        MoveDirection[] directions = StringsToDirections(args);
         run(directions);
 
         System.out.println("system zakończył działanie");
     }
 
-    static void run (Direction[] directions) {
+    static void run (MoveDirection[] directions) {
 
         System.out.println("Start");
 
-        for (Direction direction : directions) {
+        for (MoveDirection direction : directions) {
 
             String message = switch (direction) {
                 case FORWARD -> "Zwierzak idzie do przodu";
@@ -36,17 +36,17 @@ public class World {
         System.out.println("Stop");
     }
 
-    static Direction[] StringsToDirections (String[] strings) {
+    static MoveDirection[] StringsToDirections (String[] strings) {
 
-        Direction[] directions = new Direction[strings.length];
+        MoveDirection[] directions = new MoveDirection[strings.length];
 
         for (int i = 0; i < strings.length; i++) {
 
             switch (strings[i]) {
-                case "f" -> directions[i] = Direction.FORWARD;
-                case "b" -> directions[i] = Direction.BACKWARD;
-                case "r" -> directions[i] = Direction.RIGHT;
-                case "l" -> directions[i] = Direction.LEFT;
+                case "f" -> directions[i] = MoveDirection.FORWARD;
+                case "b" -> directions[i] = MoveDirection.BACKWARD;
+                case "r" -> directions[i] = MoveDirection.RIGHT;
+                case "l" -> directions[i] = MoveDirection.LEFT;
             }
 
         }
