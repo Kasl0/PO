@@ -22,21 +22,11 @@ class Animal {
         switch(direction) {
 
             case FORWARD:
-                switch (orientation) {
-                    case NORTH -> setPosition(position.add(new Vector2d(0, 1)));
-                    case SOUTH -> setPosition(position.add(new Vector2d(0, -1)));
-                    case WEST -> setPosition(position.add(new Vector2d(-1, 0)));
-                    case EAST -> setPosition(position.add(new Vector2d(1, 0)));
-                }
+                setPosition(position.add(orientation.toUnitVector()));
                 break;
 
             case BACKWARD:
-                switch (orientation) {
-                    case NORTH -> setPosition(position.subtract(new Vector2d(0, 1)));
-                    case SOUTH -> setPosition(position.subtract(new Vector2d(0, -1)));
-                    case WEST -> setPosition(position.subtract(new Vector2d(-1, 0)));
-                    case EAST -> setPosition(position.subtract(new Vector2d(1, 0)));
-                }
+                setPosition(position.subtract(orientation.toUnitVector()));
                 break;
 
             case RIGHT:
