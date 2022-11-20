@@ -9,19 +9,29 @@ public class SimulationEngine implements IEngine {
     private IWorldMap map;
 
     SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions) {
+
         this.directions = directions;
         this.map = map;
+
         for (Vector2d position : positions) {
             if (map.canMoveTo(position)) this.map.place(new Animal(map, position));
         }
     }
 
     public void run() {
+
+        List<Animal> animals;
+        if (map instanceof RectangularMap) animals = ((RectangularMap)map).animals;
+        else animals = ((GrassField)map).animals;
+
         int currentAnimal = 0;
+
         for (MoveDirection direction : directions) {
-            ((RectangularMap)map).animals.get(currentAnimal).move(direction);
+
+            animals.get(currentAnimal).move(direction);
+
             currentAnimal++;
-            if (currentAnimal == ((RectangularMap)map).animals.size()) currentAnimal = 0;
+            if (currentAnimal == animals.size()) currentAnimal = 0;
         }
     }
 }
