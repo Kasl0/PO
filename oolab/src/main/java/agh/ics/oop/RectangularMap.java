@@ -23,16 +23,10 @@ class RectangularMap extends AbstractWorldMap {
     }
 
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.isAt(position)) return true;
-        }
-        return false;
+        return animals.containsKey(position);
     }
 
     public Object objectAt(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.isAt(position)) return animal;
-        }
-        return null;
+        return animals.get(position);
     }
 }

@@ -1,7 +1,6 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class SimulationEngine implements IEngine {
 
@@ -20,7 +19,7 @@ public class SimulationEngine implements IEngine {
 
     public void run() {
 
-        List<Animal> animals;
+        Map<Vector2d, Animal> animals;
         if (map instanceof RectangularMap) animals = ((RectangularMap)map).animals;
         else animals = ((GrassField)map).animals;
 

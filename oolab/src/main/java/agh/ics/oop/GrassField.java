@@ -1,13 +1,13 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 class GrassField extends AbstractWorldMap {
 
     private int noGrassFields;
 
-    public List<Grass> GrassList = new ArrayList<>();
+    public Map<Vector2d, Grass> grassList = new HashMap<>();
 
     void addRandomGrass() {
         int randomX = (int) (Math.random() * Math.sqrt(noGrassFields * 10));
@@ -20,7 +20,7 @@ class GrassField extends AbstractWorldMap {
             randomPosition = new Vector2d(randomX, randomY);
         }
 
-        GrassList.add(new Grass(randomPosition));
+        grassList.put(randomPosition, new Grass(randomPosition));
     }
 
     GrassField(int noGrassFields) {
@@ -33,16 +33,12 @@ class GrassField extends AbstractWorldMap {
         int bottomBorder = Integer.MAX_VALUE;
         int leftBorder = Integer.MAX_VALUE;
 
-        for (Animal animal : animals) {
-            Vector2d position = animal.getPosition();
-
+        for (Vector2d position : animals.keySet()) {
             bottomBorder = Math.min(bottomBorder, position.y);
             leftBorder = Math.min(leftBorder, position.x);
         }
 
-        for (Grass grass : GrassList) {
-            Vector2d position = grass.getPosition();
-
+        for (Vector2d position : grassList.keySet()) {
             bottomBorder = Math.min(bottomBorder, position.y);
             leftBorder = Math.min(leftBorder, position.x);
         }
@@ -54,16 +50,12 @@ class GrassField extends AbstractWorldMap {
         int topBorder = Integer.MIN_VALUE;
         int rightBorder = Integer.MIN_VALUE;
 
-        for (Animal animal : animals) {
-            Vector2d position = animal.getPosition();
-
+        for (Vector2d position : animals.keySet()) {
             topBorder = Math.max(topBorder, position.y);
             rightBorder = Math.max(rightBorder, position.x);
         }
 
-        for (Grass grass : GrassList) {
-            Vector2d position = grass.getPosition();
-
+        for (Vector2d position : grassList.keySet()) {
             topBorder = Math.max(topBorder, position.y);
             rightBorder = Math.max(rightBorder, position.x);
         }

@@ -1,11 +1,11 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 abstract class AbstractWorldMap implements IWorldMap {
 
-    protected List<Animal> animals = new ArrayList<>();
+    protected Map<Vector2d, Animal> animals = new HashMap<>();
 
     abstract Vector2d getLowerLeftVector();
     abstract Vector2d getUpperRightVector();
@@ -17,7 +17,7 @@ abstract class AbstractWorldMap implements IWorldMap {
 
     public boolean place(Animal animal) {
         if (objectAt(animal.getPosition()) == null || objectAt(animal.getPosition()).getClass() != animal.getClass()) {
-            animals.add(animal);
+            animals.put(animal.getPosition(), animal);
             return true;
         }
         else return false;
