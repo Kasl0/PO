@@ -32,7 +32,7 @@ public class GrassFieldTest {
         assert map.isOccupied(new Vector2d(2,2));
 
         assert !map.isOccupied(new Vector2d(3,3));
-        ((GrassField)map).GrassList.add(new Grass(new Vector2d(3,3)));
+        ((GrassField)map).grass.put(new Vector2d(3,3), new Grass(new Vector2d(3,3)));
         assert map.isOccupied(new Vector2d(3,3));
     }
 
@@ -47,7 +47,7 @@ public class GrassFieldTest {
 
         assert map.objectAt(new Vector2d(3,3)) == null;
         Grass grass = new Grass(new Vector2d(3,3));
-        ((GrassField)map).GrassList.add(grass);
+        ((GrassField)map).grass.put(grass.getPosition(), grass);
         assert map.objectAt(new Vector2d(3,3)) == grass;
         Animal animal2 = new Animal(map, new Vector2d(3, 3));
         map.place(animal2);

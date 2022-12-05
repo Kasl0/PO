@@ -7,7 +7,7 @@ class GrassField extends AbstractWorldMap {
 
     private int noGrassFields;
 
-    public Map<Vector2d, Grass> grassList = new HashMap<>();
+    public Map<Vector2d, Grass> grass = new HashMap<>();
 
     void addRandomGrass() {
         int randomX = (int) (Math.random() * Math.sqrt(noGrassFields * 10));
@@ -20,7 +20,7 @@ class GrassField extends AbstractWorldMap {
             randomPosition = new Vector2d(randomX, randomY);
         }
 
-        grassList.put(randomPosition, new Grass(randomPosition));
+        grass.put(randomPosition, new Grass(randomPosition));
     }
 
     GrassField(int noGrassFields) {
@@ -38,7 +38,7 @@ class GrassField extends AbstractWorldMap {
             leftBorder = Math.min(leftBorder, position.x);
         }
 
-        for (Vector2d position : grassList.keySet()) {
+        for (Vector2d position : grass.keySet()) {
             bottomBorder = Math.min(bottomBorder, position.y);
             leftBorder = Math.min(leftBorder, position.x);
         }
@@ -55,7 +55,7 @@ class GrassField extends AbstractWorldMap {
             rightBorder = Math.max(rightBorder, position.x);
         }
 
-        for (Vector2d position : grassList.keySet()) {
+        for (Vector2d position : grass.keySet()) {
             topBorder = Math.max(topBorder, position.y);
             rightBorder = Math.max(rightBorder, position.x);
         }
@@ -64,29 +64,16 @@ class GrassField extends AbstractWorldMap {
     }
 
     public boolean canMoveTo(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.isAt(position)) return false;
-        }
-        return true;
+        return !animals.containsKey(position);
     }
 
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.isAt(position)) return true;
-        }
-        for (Grass grass : GrassList) {
-            if (grass.isAt(position)) return true;
-        }
-        return false;
+        return animals.containsKey(position) || grass.containsKey(position);
     }
 
     public Object objectAt(Vector2d position) {
-        for (Animal animal : animals) {
-            if (animal.isAt(position)) return animal;
-        }
-        for (Grass grass : GrassList) {
-            if (grass.isAt(position)) return grass;
-        }
-        return null;
+        Object returnObject = animals.get(position);
+        if (returnObject == null) returnObject = grass.get(position);
+        return returnObject;
     }
 }
