@@ -1,9 +1,13 @@
 package agh.ics.oop;
 
+import java.util.List;
+import java.util.ArrayList;
+
 class Animal extends AbstractWorldMapElement {
 
     private IWorldMap map;
     private MapDirection orientation = MapDirection.NORTH;
+    private List<IPositionChangeObserver> observers = new ArrayList<>();
 
     Animal(IWorldMap map, Vector2d initialPosition) {
         this.map = map;
@@ -22,12 +26,18 @@ class Animal extends AbstractWorldMapElement {
 
             case FORWARD:
                 nextPosition = position.add(orientation.toUnitVector());
-                if (map.canMoveTo(nextPosition)) this.position = nextPosition;
+                if (map.canMoveTo(nextPosition)) {
+                    positionChanged(this.position, nextPosition);
+                    this.position = nextPosition;
+                }
                 break;
 
             case BACKWARD:
                 nextPosition = position.subtract(orientation.toUnitVector());
-                if (map.canMoveTo(nextPosition)) this.position = nextPosition;
+                if (map.canMoveTo(nextPosition)) {
+                    positionChanged(this.position, nextPosition);
+                    this.position = nextPosition;
+                }
                 break;
 
             case RIGHT:
@@ -51,4 +61,19 @@ class Animal extends AbstractWorldMapElement {
 
         System.out.println("Stop");
     }
+
+    void addObserver(IPositionChangeObserver observer) {
+        observers.add(observer);
+    }
+
+    void removeObserver(IPositionChangeObserver observer) {
+        observers.remove(observer);
+    }
+
+    void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        for (IPositionChangeObserver observer: observers) {
+            observer.positionChanged(oldPosition, newPosition);
+        }
+    }
+
 }

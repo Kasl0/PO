@@ -1,11 +1,14 @@
 package agh.ics.oop;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SimulationEngine implements IEngine {
 
     private MoveDirection[] directions;
     private IWorldMap map;
+
+    private List<Animal> animals = new ArrayList<>();
 
     SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions) {
 
@@ -13,16 +16,16 @@ public class SimulationEngine implements IEngine {
         this.map = map;
 
         for (Vector2d position : positions) {
-            if (map.canMoveTo(position)) this.map.place(new Animal(map, position));
+            if (map.canMoveTo(position)) {
+
+                Animal newAnimal = new Animal(map, position);
+                animals.add(newAnimal);
+                this.map.place(newAnimal);
+            }
         }
     }
 
     public void run() {
-
-        Map<Vector2d, Animal> animals;
-        if (map instanceof RectangularMap) animals = ((RectangularMap)map).animals;
-        else animals = ((GrassField)map).animals;
-
         int currentAnimal = 0;
 
         for (MoveDirection direction : directions) {
