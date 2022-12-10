@@ -20,7 +20,14 @@ public class GrassFieldTest {
     public void testPlace() {
         IWorldMap map = new GrassField(10);
         assert map.place(new Animal(map, new Vector2d(2, 2)));
-        assert !map.place(new Animal(map, new Vector2d(2, 2)));
+
+        boolean thrown = false;
+        try {
+            map.place(new Animal(map, new Vector2d(2, 2)));
+        } catch(IllegalArgumentException exception) {
+            thrown = true;
+        }
+        assert thrown;
     }
 
     @Test

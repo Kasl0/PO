@@ -22,6 +22,7 @@ public class SimulationEngine implements IEngine {
                 animals.add(newAnimal);
                 this.map.place(newAnimal);
             }
+            else throw new IllegalArgumentException("Animal cannot appear in " + position.toString());
         }
     }
 
