@@ -21,6 +21,7 @@ class GrassField extends AbstractWorldMap {
         }
 
         grass.put(randomPosition, new Grass(randomPosition));
+        boundary.addObject(randomPosition);
     }
 
     GrassField(int noGrassFields) {
@@ -30,37 +31,11 @@ class GrassField extends AbstractWorldMap {
     }
 
     Vector2d getLowerLeftVector() {
-        int bottomBorder = Integer.MAX_VALUE;
-        int leftBorder = Integer.MAX_VALUE;
-
-        for (Vector2d position : animals.keySet()) {
-            bottomBorder = Math.min(bottomBorder, position.y);
-            leftBorder = Math.min(leftBorder, position.x);
-        }
-
-        for (Vector2d position : grass.keySet()) {
-            bottomBorder = Math.min(bottomBorder, position.y);
-            leftBorder = Math.min(leftBorder, position.x);
-        }
-
-        return new Vector2d(leftBorder, bottomBorder);
+        return new Vector2d(boundary.objectsX.first().x, boundary.objectsY.first().y);
     }
 
     Vector2d getUpperRightVector() {
-        int topBorder = Integer.MIN_VALUE;
-        int rightBorder = Integer.MIN_VALUE;
-
-        for (Vector2d position : animals.keySet()) {
-            topBorder = Math.max(topBorder, position.y);
-            rightBorder = Math.max(rightBorder, position.x);
-        }
-
-        for (Vector2d position : grass.keySet()) {
-            topBorder = Math.max(topBorder, position.y);
-            rightBorder = Math.max(rightBorder, position.x);
-        }
-
-        return new Vector2d(rightBorder, topBorder);
+        return new Vector2d(boundary.objectsX.last().x, boundary.objectsY.last().y);
     }
 
     public boolean canMoveTo(Vector2d position) {

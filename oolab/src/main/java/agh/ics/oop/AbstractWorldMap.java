@@ -6,6 +6,7 @@ import java.util.HashMap;
 abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     protected Map<Vector2d, Animal> animals = new HashMap<>();
+    protected MapBoundary boundary = new MapBoundary(this);
 
     abstract Vector2d getLowerLeftVector();
     abstract Vector2d getUpperRightVector();
@@ -18,6 +19,8 @@ abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
     public boolean place(Animal animal) {
         if (objectAt(animal.getPosition()) == null || objectAt(animal.getPosition()).getClass() != animal.getClass()) {
             animals.put(animal.getPosition(), animal);
+            boundary.addObject(animal.getPosition());
+            animal.addObserver(boundary);
             animal.addObserver(this);
             return true;
         }
