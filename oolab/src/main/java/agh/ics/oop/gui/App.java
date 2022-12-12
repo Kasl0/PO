@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import java.io.FileNotFoundException;
 
 public class App extends Application {
 
@@ -19,8 +20,8 @@ public class App extends Application {
             IEngine engine = new SimulationEngine(directions, map, positions);
             engine.run();
 
-            int cellWidth = 20;
-            int cellHeight = 20;
+            int cellWidth = 40;
+            int cellHeight = 40;
 
             GridPane gridPane = new GridPane();
             gridPane.setGridLinesVisible(true);
@@ -32,12 +33,14 @@ public class App extends Application {
             GridPane.setHalignment(newLabel, HPos.CENTER);
 
             for (int i=0; i <= map.getUpperRightVector().x - map.getLowerLeftVector().x; i++) {
+
                 newLabel = new Label( String.valueOf(map.getLowerLeftVector().x + i));
                 gridPane.add( newLabel , i+1, 0, 1, 1);
                 gridPane.getColumnConstraints().add(new ColumnConstraints( cellWidth ));
                 GridPane.setHalignment(newLabel, HPos.CENTER);
             }
             for (int i=0; i <= map.getUpperRightVector().y - map.getLowerLeftVector().y; i++) {
+
                 newLabel = new Label( String.valueOf(map.getUpperRightVector().y - i));
                 gridPane.add(newLabel, 0, i+1, 1, 1);
                 gridPane.getRowConstraints().add(new RowConstraints( cellHeight ));
@@ -50,8 +53,9 @@ public class App extends Application {
 
                     if (map.isOccupied(new Vector2d(i,j))) {
 
-                        newLabel = new Label( map.objectAt(new Vector2d(i,j)).toString() );
-                        gridPane.add( newLabel , i - map.getLowerLeftVector().x + 1, map.getUpperRightVector().y - j + 1, 1, 1);
+                        VBox elementBox = new GuiElementBox( (IMapElement) map.objectAt( new Vector2d(i,j) ) ).getElementBox();
+
+                        gridPane.add( elementBox , i - map.getLowerLeftVector().x + 1, map.getUpperRightVector().y - j + 1, 1, 1);
                         GridPane.setHalignment(newLabel, HPos.CENTER);
 
                     }
@@ -65,6 +69,8 @@ public class App extends Application {
 
         } catch(IllegalArgumentException exception) {
             System.out.println("EXCEPTION: " + exception.getMessage() + " TERMINATING PROGRAM");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

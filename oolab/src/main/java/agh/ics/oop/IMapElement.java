@@ -8,4 +8,6 @@ public interface IMapElement {
 
     String toString();
 
+    String getResourceName();
+
 }

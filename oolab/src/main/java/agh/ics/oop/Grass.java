@@ -9,4 +9,8 @@ class Grass extends AbstractWorldMapElement {
     public String toString() {
         return "*";
     }
+
+    public String getResourceName() {
+        return "src/main/resources/grass.png";
+    }
 }

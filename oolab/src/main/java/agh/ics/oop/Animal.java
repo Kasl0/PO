@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.List;
 import java.util.ArrayList;
 
-class Animal extends AbstractWorldMapElement {
+public class Animal extends AbstractWorldMapElement {
 
     private IWorldMap map;
     private MapDirection orientation = MapDirection.NORTH;
@@ -74,6 +74,15 @@ class Animal extends AbstractWorldMapElement {
         for (IPositionChangeObserver observer: observers) {
             observer.positionChanged(oldPosition, newPosition);
         }
+    }
+
+    public String getResourceName() {
+        return switch (orientation) {
+            case NORTH -> "src/main/resources/up.png";
+            case EAST -> "src/main/resources/right.png";
+            case SOUTH -> "src/main/resources/down.png";
+            case WEST -> "src/main/resources/left.png";
+        };
     }
 
 }
