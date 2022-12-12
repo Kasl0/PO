@@ -3,13 +3,13 @@ package agh.ics.oop;
 import java.util.Map;
 import java.util.HashMap;
 
-abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected MapBoundary boundary = new MapBoundary(this);
 
-    abstract Vector2d getLowerLeftVector();
-    abstract Vector2d getUpperRightVector();
+    public abstract Vector2d getLowerLeftVector();
+    public abstract Vector2d getUpperRightVector();
 
     public String toString() {
         MapVisualizer mp = new MapVisualizer(this);

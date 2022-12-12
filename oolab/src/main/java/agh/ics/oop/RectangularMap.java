@@ -10,11 +10,11 @@ class RectangularMap extends AbstractWorldMap {
         this.height = height;
     }
 
-    Vector2d getLowerLeftVector() {
+    public Vector2d getLowerLeftVector() {
         return new Vector2d(0,0);
     }
 
-    Vector2d getUpperRightVector() {
+    public Vector2d getUpperRightVector() {
         return new Vector2d(width, height);
     }
 

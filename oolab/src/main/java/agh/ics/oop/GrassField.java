@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.Map;
 import java.util.HashMap;
 
-class GrassField extends AbstractWorldMap {
+public class GrassField extends AbstractWorldMap {
 
     private int noGrassFields;
 
@@ -24,17 +24,17 @@ class GrassField extends AbstractWorldMap {
         boundary.addObject(randomPosition);
     }
 
-    GrassField(int noGrassFields) {
+    public GrassField(int noGrassFields) {
 
         this.noGrassFields = noGrassFields;
         for (int i = 0; i < noGrassFields; i++) addRandomGrass();
     }
 
-    Vector2d getLowerLeftVector() {
+    public Vector2d getLowerLeftVector() {
         return new Vector2d(boundary.objectsX.first().x, boundary.objectsY.first().y);
     }
 
-    Vector2d getUpperRightVector() {
+    public Vector2d getUpperRightVector() {
         return new Vector2d(boundary.objectsX.last().x, boundary.objectsY.last().y);
     }
 
