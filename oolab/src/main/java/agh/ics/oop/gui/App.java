@@ -3,6 +3,8 @@ package agh.ics.oop.gui;
 import agh.ics.oop.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,19 +23,29 @@ public class App extends Application implements IPositionChangeObserver {
 
     public void init() {
         try {
-            HBox controlBox = new HBox(new TextField(), new Button("Start"));
-            vBox = new VBox(10, controlBox, new Label(""));
 
-            //String[] args = getParameters().getRaw().toArray(new String[0]);
-            String[] args = new String[] {"f", "b", "f", "b", "f", "b"};
-            MoveDirection[] directions = new OptionsParser().parse(args);
             map = new GrassField(10);
             Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,3) };
-
-            SimulationEngine engine = new SimulationEngine(directions, map, positions);
+            SimulationEngine engine = new SimulationEngine(map, positions);
             engine.addAnimalsObserver(this);
-            Thread engineThread = new Thread(engine);
-            engineThread.start();
+            engine.moveDelay = 300;
+
+            Button startButton = new Button("Start");
+            TextField argsTextField = new TextField();
+
+            HBox controlBox = new HBox(argsTextField, startButton);
+            vBox = new VBox(10, controlBox, new Label(""));
+            startButton.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e) {
+
+                    String[] args = argsTextField.getText().split(" ");
+                    MoveDirection[] directions = new OptionsParser().parse(args);
+                    engine.setDirections(directions);
+
+                    Thread engineThread = new Thread(engine);
+                    engineThread.start();
+                }
+            });
 
         } catch(IllegalArgumentException exception) {
             System.out.println("EXCEPTION: " + exception.getMessage() + " TERMINATING PROGRAM");

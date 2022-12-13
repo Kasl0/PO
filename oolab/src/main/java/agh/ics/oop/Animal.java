@@ -42,10 +42,12 @@ public class Animal extends AbstractWorldMapElement {
 
             case RIGHT:
                 orientation = orientation.next();
+                positionChanged(this.position, this.position);
                 break;
 
             case LEFT:
                 orientation = orientation.previous();
+                positionChanged(this.position, this.position);
                 break;
         };
     }

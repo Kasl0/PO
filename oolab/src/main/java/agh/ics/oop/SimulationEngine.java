@@ -10,7 +10,7 @@ public class SimulationEngine implements IEngine, Runnable {
 
     private List<Animal> animals = new ArrayList<>();
 
-    public int moveDelay = 300;
+    public int moveDelay = 0;
 
     public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions) {
 
@@ -26,6 +26,25 @@ public class SimulationEngine implements IEngine, Runnable {
             }
             else throw new IllegalArgumentException("Animal cannot appear in " + position.toString());
         }
+    }
+
+    public SimulationEngine(IWorldMap map, Vector2d[] positions) {
+
+        this.map = map;
+
+        for (Vector2d position : positions) {
+            if (map.canMoveTo(position)) {
+
+                Animal newAnimal = new Animal(map, position);
+                animals.add(newAnimal);
+                this.map.place(newAnimal);
+            }
+            else throw new IllegalArgumentException("Animal cannot appear in " + position.toString());
+        }
+    }
+
+    public void setDirections(MoveDirection[] directions) {
+        this.directions = directions;
     }
 
     public void run() {
