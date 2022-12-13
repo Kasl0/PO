@@ -3,12 +3,14 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimulationEngine implements IEngine {
+public class SimulationEngine implements IEngine, Runnable {
 
     private MoveDirection[] directions;
     private IWorldMap map;
 
     private List<Animal> animals = new ArrayList<>();
+
+    public int moveDelay = 300;
 
     public SimulationEngine(MoveDirection[] directions, IWorldMap map, Vector2d[] positions) {
 
@@ -31,10 +33,23 @@ public class SimulationEngine implements IEngine {
 
         for (MoveDirection direction : directions) {
 
+            try {
+                Thread.sleep(moveDelay);
+            } catch (InterruptedException exception) {
+                System.out.println("EXCEPTION: Simulation stopped TERMINATING PROGRAM");
+            }
+
             animals.get(currentAnimal).move(direction);
 
             currentAnimal++;
             if (currentAnimal == animals.size()) currentAnimal = 0;
+
+        }
+    }
+
+    public void addAnimalsObserver(IPositionChangeObserver observer) {
+        for (Animal animal : animals) {
+            animal.addObserver(observer);
         }
     }
 }
