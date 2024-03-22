@@ -1,10 +1,10 @@
 # Laboratorium z przedmiotu 'Programowanie obiektowe'
 
-* Wprowadzenie do Javy
-* Model obiektowy Javy
-* Interakcje pomiędzy obiektami
-* Interfejsy i kolekcje
-* Dziedziczenie
-* Interfejs `Map` i wzorzec `Observer`
-* Graficzny interfejs użytkownika
-* Wątki
+1. Wprowadzenie do Javy
+2. Model obiektowy Javy
+3. Interakcje pomiędzy obiektami
+4. Interfejsy i kolekcje
+5. Dziedziczenie
+6. Interfejs `Map` i wzorzec `Observer`
+7. Graficzny interfejs użytkownika
+8. Wątki
